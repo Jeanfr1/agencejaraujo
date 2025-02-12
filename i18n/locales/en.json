@@ -1,0 +1,37 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Agence Jaraujo",
+    "subtitle": "Where Innovation Meets Design"
+  },
+  "techStack": {
+    "development": "Development",
+    "design": "Design",
+    "web": "Web",
+    "mobile": "Mobile",
+    "desktop": "Desktop",
+    "uiux": "UI/UX"
+  },
+  "contact": {
+    "title": "Let's Create Something Amazing",
+    "subtitle": "Tell us about your project and we'll get back to you within 24 hours",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "company": "Company Name",
+      "projectType": "Project Type",
+      "budget": "Budget Range",
+      "description": "Project Description",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! We'll get back to you soon.",
+      "error": "There was an error sending your message. Please try again."
+    }
+  }
+}

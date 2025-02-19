@@ -40,19 +40,19 @@ const projects = [
     githubLink: 'https://github.com/Jeanfr1/vibe-harmony-generator'
   },
   {
-    title: 'Digital Experience',
-    description: 'Immersive digital experiences with WebGL and 3D',
-    image: '/images/projects/digital-experience.jpg',
-    category: '3D Interactive',
-    demoLink: '#',
-    githubLink: '#'
+    title: 'DevConnect',
+    description: 'A modern social platform for developers to share knowledge, showcase projects, and build connections.',
+    image: '/images/projects/devconnect.jpg',
+    category: 'Social Network & Developer Tools',
+    demoLink: 'https://devvconnect.netlify.app/',
+    githubLink: 'https://github.com/Jeanfr1/DevConnect/'
   },
   {
-    title: 'Future Vision',
-    description: 'Next-generation AI-powered solutions for enterprise',
-    image: '/images/projects/future-vision.jpg',
-    category: 'Artificial Intelligence',
-    demoLink: '#',
+    title: 'MamaCare',
+    description: 'A cutting-edge parenting platform that combines artificial intelligence with expert knowledge to support parents throughout their journey. Our platform offers personalized guidance, development tracking, and AI-powered assistance to ensure the best care for your child.',
+    image: '/images/projects/mamacare.jpg',
+    category: 'Healthcare & Parenting Technology',
+    demoLink: 'https://mamacareapp.netlify.app/',
     githubLink: '#'
   }
 ];

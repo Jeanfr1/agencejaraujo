@@ -77,25 +77,62 @@ export default function Projects() {
   const getTransform = (index: number) => {
     const diff = (index - activeIndex + projects.length) % projects.length;
     const translateX = diff * 60 - 30; // Percentage
-    const translateZ = -Math.abs(diff * 200);
+    const translateZ = -Math.abs(diff * 300); // Increased depth for more dramatic 3D effect
     const rotateY = diff * 45;
     const opacity = 1 - Math.min(Math.abs(diff) * 0.5, 0.8);
     const scale = 1 - Math.abs(diff) * 0.2;
 
+    // Add a slight vertical offset for a more dynamic arrangement
+    const translateY = Math.abs(diff) * 10;
+
     return {
-      transform: `translateX(${translateX}%) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+      transform: `translateX(${translateX}%) translateY(${translateY}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
       opacity,
       zIndex: projects.length - Math.abs(diff),
+      filter: `blur(${Math.abs(diff) * 2}px)`, // Add blur effect to distant cards
     };
   };
 
   return (
     <section id="projects" ref={ref} className="py-20 bg-black overflow-hidden perspective-1000">
-      <div className="container mx-auto px-4 mb-12">
+      {/* Background glow effects */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 1 }}
+          className="absolute top-1/4 left-1/4 w-1/2 h-1/2 rounded-full bg-purple-600/10 blur-[100px]"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="absolute bottom-1/4 right-1/4 w-1/3 h-1/3 rounded-full bg-pink-600/10 blur-[100px]"
+        />
+      </div>
+
+      <div className="container mx-auto px-4 mb-12 relative z-10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-40 h-1 bg-gradient-to-r from-purple-400/50 to-pink-600/50 blur-sm"
+        />
+
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          animate={inView ? {
+            opacity: 1,
+            y: 0,
+            textShadow: ["0 0 0px rgba(236, 72, 153, 0)", "0 0 10px rgba(236, 72, 153, 0.5)", "0 0 0px rgba(236, 72, 153, 0)"]
+          } : {}}
+          transition={{
+            duration: 0.6,
+            textShadow: {
+              repeat: Infinity,
+              duration: 2
+            }
+          }}
           className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent"
         >
           Our Projects
@@ -153,53 +190,119 @@ export default function Projects() {
               className="absolute w-[80%] max-w-[500px] cursor-pointer"
               onClick={() => setActiveIndex(index)}
             >
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-600/20 rounded-2xl transform group-hover:scale-105 transition-all duration-500" />
-                <div className="relative bg-gray-900/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800/50">
-                  <div className="relative h-[300px] overflow-hidden">
+              <motion.div
+                className="relative group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                {/* Animated glow effect on hover */}
+                <motion.div
+                  className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl opacity-0 group-hover:opacity-70 blur-md transition-all duration-500"
+                  animate={{
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={{ backgroundSize: '200% 200%' }}
+                />
+
+                {/* Card background with glass effect */}
+                <div className="relative bg-gray-900/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800/50 shadow-xl">
+                  {/* Image container with parallax effect */}
+                  <motion.div
+                    className="relative h-[300px] overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
                     <Image
                       src={project.image}
                       alt={project.title}
                       width={800}
                       height={533}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover"
                       priority={index === 0}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
-                  </div>
+
+                    {/* Overlay with animated gradient */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+                      whileHover={{
+                        background: "linear-gradient(to top, rgba(17, 24, 39, 1), rgba(17, 24, 39, 0.4), transparent)"
+                      }}
+                      transition={{ duration: 0.3 }}
+                    />
+
+                    {/* Category badge with glow effect */}
+                    <motion.div
+                      className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gray-900/80 backdrop-blur-sm border border-purple-500/30"
+                      whileHover={{ scale: 1.05, boxShadow: "0 0 8px rgba(168, 85, 247, 0.5)" }}
+                    >
+                      <span className="text-sm font-medium text-purple-400">{project.category}</span>
+                    </motion.div>
+                  </motion.div>
+
+                  {/* Content section with staggered animations */}
                   <div className="p-6">
-                    <div className="mb-2">
-                      <span className="text-sm text-purple-400">{project.category}</span>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+                    <motion.h3
+                      className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent"
+                      whileHover={{
+                        textShadow: "0 0 8px rgba(236, 72, 153, 0.3)",
+                        scale: 1.01,
+                        x: 2
+                      }}
+                    >
                       {project.title}
-                    </h3>
+                    </motion.h3>
+
                     <p className="text-gray-400 mb-4">{project.description}</p>
+
                     <div className="flex space-x-4">
                       <motion.a
                         href={project.demoLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center text-white/90 hover:text-white transition-colors group"
-                        whileHover={{ x: 5 }}
+                        className="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500/10 to-pink-500/10 hover:from-purple-500/20 hover:to-pink-500/20 border border-purple-500/20 text-white/90 hover:text-white transition-all duration-300"
+                        whileHover={{
+                          x: 5,
+                          boxShadow: "0 0 10px rgba(168, 85, 247, 0.3)",
+                          borderColor: "rgba(168, 85, 247, 0.5)"
+                        }}
                       >
                         <span className="mr-2">View Demo</span>
-                        <ExternalLink className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                        <motion.div
+                          animate={{ x: [0, 3, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </motion.div>
                       </motion.a>
+
                       <motion.a
                         href={project.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center text-white/90 hover:text-white transition-colors group"
-                        whileHover={{ x: 5 }}
+                        className="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500/10 to-pink-500/10 hover:from-purple-500/20 hover:to-pink-500/20 border border-purple-500/20 text-white/90 hover:text-white transition-all duration-300"
+                        whileHover={{
+                          x: 5,
+                          boxShadow: "0 0 10px rgba(168, 85, 247, 0.3)",
+                          borderColor: "rgba(168, 85, 247, 0.5)"
+                        }}
                       >
                         <span className="mr-2">GitHub</span>
-                        <Github className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                        <motion.div
+                          animate={{ rotate: [0, 15, 0, -15, 0] }}
+                          transition={{ duration: 2, repeat: Infinity, repeatType: "loop" }}
+                        >
+                          <Github className="w-4 h-4" />
+                        </motion.div>
                       </motion.a>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>

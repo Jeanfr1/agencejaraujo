@@ -2,37 +2,53 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ArrowLeft, Globe, Users, Lightbulb, Code, Palette, Rocket } from 'lucide-react';
+import {
+  ArrowLeft, Globe, Users, Lightbulb, Code, Palette, Rocket,
+  Cpu, Database, Bot, Workflow, Sparkles, Braces, Server,
+  BarChart, Blocks, Layers
+} from 'lucide-react';
 import Link from 'next/link';
 
-const timeline = [
+const experience = [
   {
-    country: 'Brazil',
-    period: 'Early Years',
-    description: 'Where it all began - from managing a franchise restaurant to training professionals in software implementation.',
-    image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325'
+    company: 'Kasst',
+    period: 'December 2024 - Present',
+    role: 'Frontend Developer | React | TypeScript | Web3 Enthusiast | UX/UI',
+    description: 'Developing modern and scalable frontend architectures using React, TypeScript, and Node.js. Integrating Web3 solutions with Ethers.js, Hardhat, and smart contracts to build decentralized applications (dApps) and DEX UIs. Translating UI/UX designs into pixel-perfect, responsive interfaces.',
+    image: 'https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80'
   },
   {
-    country: 'Ireland',
-    period: 'Growth Period',
-    description: 'Diverse roles at global companies like Microsoft, mastering English and multicultural work environments.',
-    image: 'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e'
+    company: 'Agence Jaraujo',
+    period: 'April 2024 - November 2024',
+    role: 'AI Developer | Fullstack Engineer | Automation Specialist',
+    description: 'Developed AI-driven tools to automate repetitive tasks, reducing manual workload by 40%. Integrated data analysis pipelines using AI models for predictive insights, improving decision-making speed by 35%. Implemented smart automation workflows that enhanced project delivery efficiency by 25%.',
+    image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80'
   },
   {
-    country: 'France',
-    period: 'Transformation',
-    description: 'Technical expertise meets creativity at HPE, leading to the vision of Agence Jaraujo.',
-    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34'
+    company: 'Agence Jaraujo',
+    period: 'October 2023 - April 2024',
+    role: 'Fullstack Developer & Technical Advisor',
+    description: 'Developed scalable, responsive web applications using React, Node.js, and Tailwind CSS. Collaborated with design teams to implement intuitive interfaces. Integrated AI-driven tools and automation processes to streamline development workflows.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80'
+  },
+  {
+    company: 'Previous Experience',
+    period: 'Career Foundation',
+    description: 'At Microsoft, supported business technology projects that streamlined processes, reducing operational costs by 18%. At HP (HPE Flex Offers Program), led strategic outreach and training initiatives, contributing to a 20% increase in program adoption across France.',
+    image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80'
   }
 ];
 
-const values = [
-  { icon: Globe, title: 'Global Perspective', description: 'Drawing insights from three different continents' },
-  { icon: Users, title: 'Client-Centric', description: 'Understanding and exceeding client expectations' },
-  { icon: Lightbulb, title: 'Innovation', description: 'Pushing boundaries in technology and design' },
-  { icon: Code, title: 'Technical Excellence', description: 'Mastery in development and implementation' },
-  { icon: Palette, title: 'Creative Vision', description: 'Blending aesthetics with functionality' },
-  { icon: Rocket, title: 'Forward Thinking', description: 'Always staying ahead of industry trends' }
+const skills = [
+  { icon: Bot, title: 'AI & Automation', description: 'Creating intelligent solutions that transform businesses' },
+  { icon: Braces, title: 'Frontend Development', description: 'React, TypeScript, responsive UI/UX implementation' },
+  { icon: Server, title: 'Backend Development', description: 'Node.js, API development & integration' },
+  { icon: Blocks, title: 'Web3 Technologies', description: 'Ethers.js, Hardhat, smart contracts, dApps' },
+  { icon: Workflow, title: 'Workflow Optimization', description: 'Streamlining processes with smart automation' },
+  { icon: Database, title: 'Data Integration', description: 'Building data pipelines for predictive insights' },
+  { icon: Cpu, title: 'Machine Learning', description: 'Implementing ML fundamentals for business solutions' },
+  { icon: Layers, title: 'Fullstack Expertise', description: 'End-to-end development with modern technologies' },
+  { icon: BarChart, title: 'Data Analysis', description: 'Transforming data into actionable business insights' }
 ];
 
 export default function About() {
@@ -64,8 +80,8 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="absolute top-8 left-4"
           >
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="inline-flex items-center text-white/90 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
@@ -92,10 +108,19 @@ export default function About() {
         </div>
       </div>
 
-      {/* Timeline Section */}
+      {/* Professional Experience Section */}
       <div ref={timelineRef} className="container mx-auto px-4 py-20">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={timelineInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent"
+        >
+          Professional Journey
+        </motion.h2>
+
         <div className="space-y-20">
-          {timeline.map((item, index) => (
+          {experience.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
@@ -110,17 +135,18 @@ export default function About() {
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-600/20 rounded-2xl transform group-hover:scale-105 transition-transform duration-500" />
                   <img
                     src={item.image}
-                    alt={item.country}
+                    alt={item.company}
                     className="w-full h-[400px] object-cover rounded-2xl"
                   />
                 </div>
               </div>
               <div className="w-full md:w-1/2 space-y-4">
                 <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-                  {item.country}
+                  {item.company}
                 </h3>
-                <h4 className="text-xl text-gray-300">{item.period}</h4>
-                <p className="text-gray-400 leading-relaxed">
+                <h4 className="text-xl text-purple-300">{item.role}</h4>
+                <h5 className="text-md text-gray-400">{item.period}</h5>
+                <p className="text-gray-300 leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -129,7 +155,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Values Section */}
+      {/* Skills Section */}
       <div ref={valuesRef} className="container mx-auto px-4 py-20">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -137,11 +163,11 @@ export default function About() {
           transition={{ duration: 0.8 }}
           className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent"
         >
-          Our Values
+          Expertise & Skills
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {values.map((value, index) => (
+          {skills.map((skill, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -153,18 +179,49 @@ export default function About() {
               <div className="relative bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800/50">
                 <div className="w-16 h-16 mb-6 bg-gradient-to-r from-purple-400 to-pink-600 p-0.5 rounded-lg">
                   <div className="w-full h-full bg-gray-900 rounded-lg flex items-center justify-center">
-                    <value.icon className="w-8 h-8 text-white" />
+                    <skill.icon className="w-8 h-8 text-white" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-                  {value.title}
+                  {skill.title}
                 </h3>
                 <p className="text-gray-400">
-                  {value.description}
+                  {skill.description}
                 </p>
               </div>
             </motion.div>
           ))}
+        </div>
+      </div>
+
+      {/* About Me Section */}
+      <div className="container mx-auto px-4 py-20">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={valuesInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 bg-clip-text text-transparent"
+        >
+          About Me
+        </motion.h2>
+
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={valuesInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="relative bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800/50"
+          >
+            <p className="text-gray-300 leading-relaxed mb-6">
+              I&apos;m an AI Developer passionate about creating intelligent solutions that transform businesses. With a strong foundation in Fullstack Development (React, Node.js) and a recent pivot to Artificial Intelligence and Automation, I design and implement AI-driven systems that optimize workflows, enhance data analysis, and drive business growth.
+            </p>
+            <p className="text-gray-300 leading-relaxed mb-6">
+              My diverse background includes leading projects in customer service, technical training, and fullstack development across global companies like Microsoft and HP. This unique combination of technical expertise and business acumen enables me to tackle complex challenges with innovative AI solutions.
+            </p>
+            <p className="text-gray-300 leading-relaxed">
+              Currently, at Agence Jaraujo, I integrate advanced AI tools to automate processes, streamline operations, and deliver data-driven insights, positioning businesses for success in the digital era.
+            </p>
+          </motion.div>
         </div>
       </div>
     </div>
